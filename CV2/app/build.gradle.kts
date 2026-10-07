@@ -37,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation("io.github.thechance101:chart:1.1")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)

@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
                     //NewComp02(name = "TAMZ", modifier = Modifier.padding(innerPadding))
 
-                    NewComp03(name = "TAMZ", modifier = Modifier.padding(innerPadding))
+                    //NewComp03(name = "TAMZ", modifier = Modifier.padding(innerPadding))
 
                     //NewComp04(name = "TAMZ", modifier = Modifier.padding(innerPadding))
 
@@ -193,6 +193,7 @@ fun NewComp03(name: String, modifier: Modifier = Modifier) {
 fun NewComp04(name: String, modifier: Modifier = Modifier) {
 
     var textInput by remember { mutableStateOf("") }
+
 
     // Prvky jsou uspořádány pod sebe na střed obrazovky
     Column(
