@@ -25,6 +25,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SlozenyUrokCV2"
+rootProject.name = "urok"
 include(":app")
  

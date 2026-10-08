@@ -6,8 +6,8 @@ Aplikace používá Kotlin a Jetpack Compose. Posuvníky nastavují jednorázov�
 vklad (0–500 000 Kč, po 1 000 Kč), roční úrok (0–15 %) a dobu (0–30 let).
 Výsledek a dva sloupce grafu se aktualizují automaticky. Oba sloupce mají
 stejné měřítko. Daň ani další vklady se nepočítají.
-Graf má procentní měřítko: vyšší sloupec je 100 %, přesné částky jsou nad grafem.
-Graf zůstává při pohybu slideru stejnou komponentou, aby neblikal.
+Graf zobrazuje přesné částky nad sloupci. Každý sloupec je uprostřed své poloviny
+grafu a má šířku 70 % této poloviny. Obě částky používají společné měřítko v Kč.
 
 Výpočet: `vklad * (1 + úrok / 100)^početLet`. Zaokrouhluje se až zobrazení.
 
@@ -15,11 +15,11 @@ Celý kód aplikace je v `app/src/main/java/com/example/urokcv2/MainActivity.kt`
 - `MainActivity` spouští obrazovku.
 - `InterestScreen` obsahuje stav, posuvníky a výsledek.
 - `compoundInterest` vypočítá konečnou sumu.
-- `InterestChart` předává vklad a úroky knihovně AAY-chart, která vykresluje graf.
+- `InterestChart` předává vklad a úroky knihovně MPAndroidChart přes `AndroidView`.
 
-Graf používá AAY-chart (https://github.com/TheChance101/AAY-chart).
-Závislost `io.github.thechance101:chart:1.1` je v `app/build.gradle.kts`;
-importy `BarChart` a `BarParameters` jsou v `MainActivity.kt`.
+Graf používá MPAndroidChart (https://github.com/PhilJay/MPAndroidChart).
+Závislost `com.github.PhilJay:MPAndroidChart:v3.1.0` je v `app/build.gradle.kts`;
+repozitář JitPack je v `settings.gradle.kts` a importy jsou v `MainActivity.kt`.
 
 Zápis odpovídá ukázkám CV1: `UrokTheme`, `Scaffold`, parametr `modifier`,
 mezery přes `Spacer` a stav přes `remember { mutableStateOf(...) }`.

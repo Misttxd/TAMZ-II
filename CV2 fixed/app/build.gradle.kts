@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.urokcv2"
+    namespace = "com.example.urok"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.urokcv2"
+        applicationId = "com.example.urok"
         minSdk = 24
         targetSdk = 37
         versionCode = 1

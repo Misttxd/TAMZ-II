@@ -1,4 +1,4 @@
-package com.example.urokcv2
+package com.example.urok
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -36,7 +36,7 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.example.urokcv2.ui.theme.UrokTheme
+import com.example.urok.ui.theme.UrokTheme
 import kotlin.math.pow
 import kotlin.math.roundToInt
 import java.text.NumberFormat
@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            UrokTheme {
+            UrokTheme(darkTheme = false, dynamicColor = false) {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     InterestScreen(modifier = Modifier.padding(innerPadding))
                 }
