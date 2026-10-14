@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Spořicí kalkulačka — interaktivní průvodce kódem</title>
+<style>
+:root{--paper:#f7f7f2;--ink:#183e3b;--muted:#5b716b;--accent:#087e78;--line:#d4e0d8;--mint:#e3f2e9;--white:#fff;--code:#183731}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Segoe UI",sans-serif;font-size:16px;line-height:1.6}button,input{font:inherit}button{cursor:pointer}a{color:inherit}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #d7a244;outline-offset:4px}button{color:inherit}code,pre,.eyebrow,.number,.tag,.meta{font-family:Consolas,"Courier New",monospace}code{font-size:.87em;background:var(--mint);padding:2px 5px;border-radius:4px}button:disabled{cursor:default}h1,h2,h3,p{margin:0}h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:400}h1{font-size:clamp(38px,5vw,68px);line-height:1.07;letter-spacing:-2px}h2{font-size:32px;line-height:1.2}h3{font-size:17px}ol,ul{padding-left:24px}li+li{margin-top:8px}.frame{max-width:1380px;margin:auto;padding:0 48px}.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent)}.muted{color:var(--muted)}.topline{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:25px 0;gap:18px}.brand{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600}.brand-mark{width:28px;height:28px;border:7px solid var(--accent);border-radius:50%;box-shadow:inset 0 0 0 2px var(--paper)}.topline nav{display:flex;gap:24px;font-size:13px}.topline nav a{text-decoration:none}.topline nav a:hover{color:var(--accent);text-decoration:underline}.intro{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;padding:52px 0 36px;align-items:end}.intro h1{margin-top:14px}.intro p{color:var(--muted);max-width:420px}.intro .stats{margin-top:20px;display:flex;gap:20px;font-size:12px}.stats strong{color:var(--ink)}.screen-tabs{display:flex;flex-wrap:wrap;gap:8px;padding:0 0 24px;border-bottom:1px solid var(--line)}.screen-tab{background:transparent;border:1px solid var(--line);border-radius:7px;padding:9px 13px;font-size:13px;display:flex;gap:9px;align-items:center}.screen-tab .number{font-size:10px;color:var(--muted)}.screen-tab:hover{background:#edf2eb}.screen-tab[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}.screen-tab[aria-pressed=true] .number{color:#aed6c5}.workbench{display:grid;grid-template-columns:390px minmax(0,1fr);gap:55px;align-items:start;padding:30px 0 70px}.visual{position:sticky;top:24px}.visual-heading{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:5px}.visual-heading h2{font-size:27px}.view-index{font-size:11px}.caption{font-size:12px;color:var(--muted);margin-bottom:18px}.phone{width:280px;max-width:100%;margin:0 auto;position:relative;border:6px solid #24453f;border-radius:25px;background:white;box-shadow:0 15px 35px #234c3914;overflow:hidden}.phone img{width:100%;height:auto;display:block}.hotspot{position:absolute;background:transparent;border:1px solid #087e7860;border-radius:7px;z-index:2;padding:0;text-align:left;transition:background .16s,border-color .16s,box-shadow .16s}.hotspot.container{z-index:1}.hotspot:hover,.hotspot.active,.hotspot:focus-visible{background:#12af9b19;border:2px solid var(--accent);box-shadow:inset 0 0 0 1px #ffffff90}.hotspot .tag{position:absolute;left:3px;top:3px;font-size:9px;font-weight:600;line-height:1.3;padding:3px 5px;border-radius:4px;background:var(--accent);color:#fff;max-width:95%;opacity:0;pointer-events:none;white-space:nowrap}.hotspot:hover .tag,.hotspot.active .tag,.hotspot:focus-visible .tag{opacity:1}.phone.hide-regions .hotspot:not(.active):not(:hover){border-color:transparent}.viewer-controls{display:flex;gap:10px;justify-content:center;font-size:11px;margin:14px 0}.viewer-controls label{display:flex;align-items:center;gap:6px;cursor:pointer}.viewer-controls input{accent-color:var(--accent)}.hint{text-align:center;color:var(--muted);font-size:12px;margin-bottom:18px}.region-list{display:flex;flex-wrap:wrap;gap:6px}.region-button,.chip{border:1px solid var(--line);background:var(--white);padding:5px 9px;border-radius:5px;font-size:11px}.region-button:hover,.chip:hover{border-color:var(--accent);color:var(--accent)}.region-button[aria-pressed=true]{background:var(--mint);border-color:var(--accent)}.screen-link{border:0;background:none;font-size:12px;color:var(--accent);padding:6px 0;margin-top:7px;text-decoration:underline;text-underline-offset:3px}.detail{min-width:0}.detail .eyebrow{margin-bottom:10px}.detail h2{font-size:35px;margin:8px 0 15px}.identity{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:11px 0;font-size:12px}.identity code{font-size:13px}.location{color:var(--muted);font-size:11px}.role{font-size:17px;margin:20px 0}.detail ol{font-size:14px;color:#405f58;margin:0 0 25px}.defense{padding:16px 20px;background:var(--mint);border-left:3px solid var(--accent);margin:0 0 26px}.defense .eyebrow{margin-bottom:7px}.defense p{font-family:Georgia,serif;font-size:18px;line-height:1.5}.code-toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:10px}.small-button{font-size:12px;border:1px solid var(--line);border-radius:5px;padding:6px 11px;background:var(--white)}.small-button:hover{border-color:var(--accent)}.code-card{background:var(--code);border-radius:9px;overflow:hidden;color:#dfebe3}.code-card pre{margin:0;padding:18px 0;font-size:12px;line-height:1.7;max-height:490px;overflow:auto;tab-size:4}.code-line{display:block;white-space:pre;min-width:max-content;padding-right:24px}.code-line:before{content:attr(data-line);color:#7b9b8c;font-size:10px;display:inline-block;width:48px;padding-right:14px;text-align:right;user-select:none}.code-card pre code{padding:0;background:none;font:inherit;color:inherit}.keyword{color:#86d9c5;font-weight:600}.str{color:#e4d7a5}.comment{color:#8ca69a}.relations{margin-top:20px;font-size:12px}.relations .label{color:var(--muted);margin-bottom:6px}.relations .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.catalog{border-top:1px solid var(--line);padding:40px 0}.section-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:0 0 20px}.section-heading input{width:300px;max-width:100%;border:1px solid var(--line);border-radius:6px;background:white;padding:10px 13px;font-size:13px;color:var(--ink)}.catalog-note{font-size:14px;color:var(--muted);margin-bottom:22px}.catalog-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.catalog-item{background:var(--white);border:1px solid var(--line);border-radius:7px;text-align:left;padding:15px 16px;min-width:0;transition:border-color .15s,background .15s}.catalog-item:hover{border-color:var(--accent);background:#f0f7f0}.catalog-item[aria-pressed=true]{border-color:var(--accent);background:var(--mint)}.catalog-item strong{font-weight:600;font-size:14px;display:block}.catalog-item code{display:inline-block;background:none;padding:0;color:var(--accent);margin-top:3px;font-size:11px}.catalog-item .group{display:block;color:var(--muted);font-size:10px;margin-bottom:6px}.empty{padding:24px;background:var(--white);border:1px dashed var(--line);grid-column:1/-1;font-size:14px}.learning{border-top:1px solid var(--line);padding:40px 0 50px}.learning-grid{display:grid;grid-template-columns:1fr 1fr;gap:35px;margin-top:22px}.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0 30px}.flow div{border:1px solid var(--line);background:white;padding:14px;border-radius:6px;font-size:12px}.flow .number{display:block;color:var(--accent);margin-bottom:8px}.flow strong{display:block;margin-bottom:6px}details{border-bottom:1px solid var(--line);padding:13px 0;font-size:14px}summary{cursor:pointer;font-weight:600}details p{margin-top:10px;color:#405f58}details code{font-size:12px}.glossary{display:grid;grid-template-columns:1fr 1fr;gap:12px}.term{background:white;padding:14px;border:1px solid var(--line);border-radius:6px}.term code{font-size:12px}.term p{font-size:12px;color:var(--muted);margin-top:7px}.footer{border-top:1px solid var(--line);font-size:11px;color:var(--muted);padding:20px 0 36px;display:flex;justify-content:space-between;gap:20px}.footer button{background:none;border:0;color:var(--accent);font-size:11px;text-decoration:underline}dialog{border:1px solid var(--line);border-radius:12px;padding:24px;width:min(1100px,94vw);max-height:90vh;background:var(--paper);color:var(--ink)}dialog::backdrop{background:#143b33b0}dialog .dialog-top{display:flex;justify-content:space-between;gap:20px;margin-bottom:20px}dialog .code-card pre{max-height:70vh}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}[hidden]{display:none!important}
+@media(min-width:1550px){.phone{width:310px}.workbench{grid-template-columns:430px minmax(0,1fr)}}
+@media(max-width:1000px){.frame{padding:0 26px}.workbench{grid-template-columns:310px minmax(0,1fr);gap:28px}.intro{gap:30px}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.detail h2{font-size:29px}.phone{width:260px}}
+@media(max-width:720px){.frame{padding:0 18px}.topline{padding:17px 0}.topline nav{gap:12px;font-size:11px}.brand{font-size:11px}.intro{grid-template-columns:1fr;gap:22px;padding:32px 0 26px}h1{letter-spacing:-1px}.intro .stats{gap:15px}.workbench{grid-template-columns:1fr;gap:30px;padding-top:22px}.visual{position:static}.phone{width:260px}.region-list{justify-content:center}.visual-heading h2{font-size:27px}.detail h2{font-size:31px}.section-heading{align-items:flex-start;flex-direction:column}.section-heading input{width:100%}.catalog-grid{grid-template-columns:1fr}.learning-grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.glossary{grid-template-columns:1fr 1fr}.footer{flex-direction:column;gap:5px}.code-card pre{font-size:11px}.screen-tab{font-size:12px;padding:8px 10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media print{.frame{padding:0;max-width:none}.topline nav,.screen-tabs,.viewer-controls,.region-list,.catalog,.footer button,.screen-link,.small-button{display:none}.workbench{grid-template-columns:220px 1fr;gap:25px}.visual{position:static}.phone{width:200px}.code-card pre{max-height:none;white-space:pre-wrap}.learning{break-before:page}body{background:#fff}.hotspot{display:none}.code-line{white-space:pre-wrap;min-width:0}.intro{padding:20px 0}.code-card{print-color-adjust:exact}.defense{print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<div class="frame">
+<header>
+  <div class="topline"><div class="brand"><span class="brand-mark" aria-hidden="true"></span>SPOŘICÍ KALKULAČKA <span class="muted">/ CV3 + CV4</span></div><nav aria-label="Sekce průvodce"><a href="#prohlidka">Obrazovky</a><a href="#komponenty">Komponenty</a><a href="#obhajoba">Obhajoba</a></nav></div>
+  <div class="intro"><div><div class="eyebrow">Interaktivní průvodce skutečným kódem</div><h1>Od obrazovky<br>ke kódu.</h1></div><div><p>Najeď na část aplikace a zjisti, která komponenta ji vykresluje, jak funguje a jak ji vysvětlit u obhajoby.</p><div class="stats"><span><strong>7</strong> screenshotů</span><span><strong>24</strong> vizuálních komponent</span><span><strong>1</strong> Kotlin soubor</span></div></div></div>
+</header>
+<main>
+<section id="prohlidka" aria-label="Interaktivní prohlídka aplikace">
+<nav class="screen-tabs" id="screenTabs" aria-label="Screenshoty aplikace"></nav>
+<div class="workbench">
+  <aside class="visual" aria-label="Screenshot a aktivní oblasti">
+    <div class="visual-heading"><h2 id="screenTitle"></h2><span class="view-index meta" id="screenIndex"></span></div>
+    <p class="caption" id="screenCaption"></p>
+    <div class="phone" id="phone"><img id="screenImage" alt="" draggable="false"><div id="hotspots"></div></div>
+    <div class="viewer-controls"><label><input id="regionVisibility" type="checkbox" checked>Zvýraznit oblasti</label><button class="small-button" id="zoomImage">Zvětšit</button></div>
+    <p class="hint">Najeď, klikni nebo vyber oblast klávesnicí Tab.</p>
+    <div class="region-list" id="regionList"></div>
+    <button class="screen-link" id="screenCode">Jak je složená celá obrazovka →</button>
+  </aside>
+  <article class="detail" id="componentDetail" aria-labelledby="componentTitle">
+    <div class="eyebrow" id="componentGroup"></div>
+    <h2 id="componentTitle" aria-live="polite"></h2>
+    <div class="identity"><code id="componentName"></code><span class="location" id="sourceLocation"></span></div>
+    <p class="role" id="componentRole"></p>
+    <h3>Jak to funguje</h3><ol id="explanation"></ol>
+    <div class="defense"><div class="eyebrow">Věta pro obhajobu</div><p id="defense"></p></div>
+    <div class="code-toolbar"><h3>Skutečný kód komponenty</h3><button class="small-button" id="copyCode">Kopírovat kód</button></div>
+    <div class="code-card"><pre id="codeBlock" aria-label="Kotlin kód vybrané komponenty"></pre></div>
+    <div class="relations"><div id="parentsWrap"><div class="label">Je používaná v</div><div class="chips" id="parents"></div></div><div id="childrenWrap"><div class="label">Volá nebo používá</div><div class="chips" id="children"></div></div></div>
+  </article>
+</div>
+</section>
+<section class="catalog" id="komponenty">
+  <div class="section-heading"><div><div class="eyebrow">Najdi si svůj kus aplikace</div><h2>Komponenty a společná logika</h2></div><label><span class="sr-only">Hledat komponentu nebo výpočet</span><input id="search" type="search" placeholder="Hledat název, funkci nebo téma…"></label></div>
+  <p class="catalog-note">Každá položka otevře vlastní kód a vysvětlení. Komponenta spojuje související elementy — například popisek a posuvník nebo celou kartu grafu.</p>
+  <div class="catalog-grid" id="catalogGrid"></div>
+</section>
+<section class="learning" id="obhajoba">
+  <div class="eyebrow">Pochop celý tok</div><h2>Co se stane, když posunu posuvník?</h2>
+  <div class="flow"><div><span class="number">01 / VSTUP</span><strong>Uživatel změní hodnotu</strong>SavingsSlider ji zaokrouhlí podle kroku a předá přes onValueChange.</div><div><span class="number">02 / STAV</span><strong>Aktualizuje se SavingsState</strong>Rodič uloží hodnotu. mutableStateOf zajistí aktualizaci rozhraní.</div><div><span class="number">03 / VÝSTUP</span><strong>Přepočítá se výsledek i graf</strong>CalculatorScreen získá nové částky a předá je přehledu výsledku a grafu.</div></div>
+  <div class="learning-grid"><div><h3>Otázky k obhajobě</h3>
+    <details><summary>Jaká navigace je zde použitá?</summary><p>Jednoduchá navigace přes proměnnou <code>screen</code> a podmínky <code>if/else</code>. Kliknutí v menu změní její hodnotu. Nepoužívá se knihovna navigation-compose.</p></details>
+    <details><summary>Proč předávám obrazovkám společný stav?</summary><p>Každá obrazovka dostane tentýž objekt <code>SavingsState</code>. Změna nastavení se proto projeví v kalkulačce a nemusím kopírovat mnoho samostatných hodnot.</p></details>
+    <details><summary>Jaký je rozdíl mezi komponentou a elementem?</summary><p><code>Text</code>, <code>Button</code> a <code>RadioButton</code> jsou základní elementy. Naše komponenta skládá související elementy a chování: <code>SavingsSlider</code> obsahuje text i posuvník, <code>AppMenu</code> ikonu i rozbalovací nabídku.</p></details>
+    <details><summary>Kdy přichází měsíční vklad a jak funguje daň?</summary><p>V cyklu se nejdřív připíše úrok a teprve potom měsíční vklad. Jde o vklad na konci měsíce. Zapnutá daň v této aplikaci sníží použitou úrokovou sazbu o 15 %; neodečítá se z vložené jistiny.</p></details>
+    <details><summary>Zůstanou data po vypnutí aplikace?</summary><p>Nejde o trvalé ukládání. <code>remember</code> zachovává objekt při překreslování a přepínání našich obrazovek. Nové spuštění nebo vytvoření aktivity obnoví výchozí hodnoty; historie je jen v paměti.</p></details>
+    <details><summary>Je kód součástí zadání, nebo naše implementace?</summary><p>Zadání požaduje složené úročení a hodnotí přidané funkce. Názvy a rozdělení komponent jsou naše implementační volba. AAY-chart zajišťuje kreslení grafů. Samotné vzorce, řízení obrazovek, nastavení a historii připravuje náš kód.</p></details>
+  </div><div><h3>Malý slovník Kotlinu a Compose</h3><div class="glossary" style="margin-top:14px">
+    <div class="term"><code>@Composable</code><p>Označuje funkci, která vytváří obsah rozhraní Compose.</p></div>
+    <div class="term"><code>remember</code><p>Uchová vytvořenou hodnotu mezi překresleními stejného místa rozhraní.</p></div>
+    <div class="term"><code>mutableStateOf</code><p>Sledovaná hodnota. Změna oznámí Compose, že má aktualizovat její zobrazení.</p></div>
+    <div class="term"><code>by</code><p>U sledované hodnoty umožní číst a zapisovat přímo proměnnou místo přístupu přes .value.</p></div>
+    <div class="term"><code>val / var</code><p>val nelze znovu přiřadit; var umožňuje změnit uloženou hodnotu.</p></div>
+    <div class="term"><code>Modifier</code><p>Nastavuje rozměry, odsazení, barvu nebo reakci na kliknutí.</p></div>
+    <div class="term"><code>(String) → Unit</code><p>Typ předané funkce: přijme text a provede akci bez vrácení výsledné hodnoty.</p></div>
+    <div class="term"><code>{ newValue → … }</code><p>Krátký zápis funkce. newValue je její vstup; tělo říká, co s ním udělat.</p></div>
+    <div class="term"><code>Float / Double</code><p>Desetinné typy. Slider používá Float, výpočet úroku Double.</p></div>
+    <div class="term"><code>List&lt;String&gt;</code><p>Seznam textů. Zde například uložené textové snímky historie.</p></div>
+    <div class="term"><code>coerceIn</code><p>Omezí hodnotu na zadané minimum a maximum.</p></div>
+    <div class="term"><code>dp</code><p>Jednotka rozměru, která zohledňuje hustotu pixelů Android zařízení.</p></div>
+  </div></div></div>
+</section>
+</main>
+<footer class="footer"><span>CV3 + CV4 · skutečné screenshoty a snímek MainActivity.kt · 14. 10. 2026 · funguje bez internetu</span><button id="fullSource">Zobrazit celý Kotlin soubor</button></footer>
+</div>
+<dialog id="sourceDialog"><div class="dialog-top"><div><div class="eyebrow">Zdrojový soubor při vytvoření průvodce</div><h2>MainActivity.kt</h2></div><button id="closeSource" class="small-button">Zavřít</button></div><div class="code-card"><pre id="fullCode"></pre></div></dialog>
+<dialog id="imageDialog" style="width:min(620px,94vw)"><div class="dialog-top"><h2 id="zoomTitle"></h2><button id="closeImage" class="small-button">Zavřít</button></div><img id="zoomedImage" alt="" style="display:block;width:100%;height:auto"></dialog>
+<script id="guideData" type="application/json">__GUIDE_DATA__</script>
+<script>
+const data = JSON.parse(document.getElementById('guideData').textContent);
+const $ = id => document.getElementById(id);
+let currentScreen = data.screens[0];
+let currentComponent = currentScreen.default;
+const escapeHTML = text => text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const inline = text => escapeHTML(text).replace(/`([^`]+)`/g,'<code>$1</code>');
+function highlight(line){
+  const pattern = /(\/\/.*$|"(?:[^"\\]|\\.)*"|\b(?:fun|val|var|class|if|else|for|in|return|override|private|true|false|null|by)\b|@Composable)/g;
+  let result='', pos=0;
+  for(const m of line.matchAll(pattern)){
+    result+=escapeHTML(line.slice(pos,m.index));
+    const type=m[0].startsWith('//')?'comment':m[0].startsWith('"')?'str':'keyword';
+    result+='<span class="'+type+'">'+escapeHTML(m[0])+'</span>'; pos=m.index+m[0].length;
+  }
+  return result+escapeHTML(line.slice(pos));
+}
+function renderCode(target, code, start=1){
+  target.innerHTML=code.split('\n').map((line,i)=>'<span class="code-line" data-line="'+(start+i)+'">'+highlight(line)+'</span>').join('');
+  target.scrollTop=0;target.scrollLeft=0;
+}
+function chip(name){const b=document.createElement('button');b.className='chip';b.textContent=name;b.addEventListener('click',()=>selectComponent(name,true));return b;}
+function renderPanel(name){
+  const c=data.components[name]; currentComponent=name;
+  $('componentGroup').textContent=c.group;
+  $('componentTitle').textContent=c.title;
+  $('componentName').textContent=c.name+'()';
+  if(name==='MainActivity'||name==='SavingsState')$('componentName').textContent='class '+c.name;
+  $('sourceLocation').textContent='MainActivity.kt · řádek '+c.line;
+  $('componentRole').textContent=c.role;
+  $('explanation').innerHTML=c.steps.map(s=>'<li>'+inline(s)+'</li>').join('');
+  $('defense').textContent='„'+c.defense+'“';
+  renderCode($('codeBlock'),c.code,c.line);
+  for(const [key,target,wrap] of [['parents','parents','parentsWrap'],['children','children','childrenWrap']]){
+    $(target).replaceChildren(...c[key].map(chip));$(wrap).hidden=!c[key].length;
+  }
+  $('copyCode').textContent='Kopírovat kód';
+  document.querySelectorAll('.hotspot,.region-button').forEach(el=>{
+    const region=currentScreen.regions[Number(el.dataset.index)];
+    const active=region.component===name||region.related.includes(name);
+    el.classList.toggle('active',active);el.setAttribute('aria-pressed',String(active));
+  });
+  document.querySelectorAll('.catalog-item').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.component===name)));
+}
+function selectComponent(name, reveal=false){
+  if(reveal){
+    const same=currentScreen.parent===name||currentScreen.regions.some(r=>r.component===name||r.related.includes(name));
+    const screen=same?currentScreen:data.screens.find(s=>s.parent===name||s.regions.some(r=>r.component===name||r.related.includes(name)));
+    if(screen&&screen.id!==currentScreen.id)renderScreen(screen.id,false);
+  }
+  renderPanel(name);
+  if(reveal)$('componentDetail').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+}
+function renderScreen(id, reset=true){
+  currentScreen=data.screens.find(s=>s.id===id);
+  $('screenImage').src=currentScreen.image;
+  $('screenImage').alt='Skutečný screenshot aplikace: '+currentScreen.title;
+  $('screenTitle').textContent=currentScreen.title;
+  $('screenCaption').textContent=currentScreen.caption;
+  $('screenIndex').textContent=String(data.screens.indexOf(currentScreen)+1).padStart(2,'0')+' / 07';
+  $('screenCode').textContent='Jak je složená '+(currentScreen.id==='menu'?'navigace':'celá obrazovka')+' →';
+  document.querySelectorAll('.screen-tab').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.screen===id)));
+  $('hotspots').replaceChildren();$('regionList').replaceChildren();
+  currentScreen.regions.forEach((r,i)=>{
+    const b=document.createElement('button');b.className='hotspot';b.dataset.index=i;
+    if(['SavingsControls','SavingsModeSettings','AppHeader'].includes(r.component))b.classList.add('container');
+    b.style.cssText=`left:${r.x}%;top:${r.y}%;width:${r.w}%;height:${r.h}%;`;
+    b.setAttribute('aria-label',r.label+' — '+r.component);b.title=r.component;
+    const tag=document.createElement('span');tag.className='tag';tag.textContent=r.label;b.append(tag);
+    b.addEventListener('mouseenter',()=>selectComponent(r.component));
+    b.addEventListener('focus',()=>selectComponent(r.component));
+    b.addEventListener('click',()=>{selectComponent(r.component);if(innerWidth<721)$('componentDetail').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});
+    $('hotspots').append(b);
+    const rb=document.createElement('button');rb.className='region-button';rb.dataset.index=i;rb.textContent=r.label;
+    rb.addEventListener('click',()=>selectComponent(r.component));$('regionList').append(rb);
+  });
+  if(reset)renderPanel(currentScreen.default);
+}
+function renderCatalog(){
+  const term=$('search').value.toLocaleLowerCase('cs');
+  const values=Object.values(data.components).filter(c=>(c.name+' '+c.title+' '+c.role+' '+c.group).toLocaleLowerCase('cs').includes(term));
+  $('catalogGrid').replaceChildren();
+  for(const c of values){
+    const b=document.createElement('button');b.className='catalog-item';b.dataset.component=c.name;
+    b.setAttribute('aria-pressed',String(c.name===currentComponent));
+    b.innerHTML='<span class="group">'+escapeHTML(c.group)+'</span><strong>'+escapeHTML(c.title)+'</strong><code>'+escapeHTML(c.name)+'</code>';
+    b.addEventListener('click',()=>selectComponent(c.name,true));$('catalogGrid').append(b);
+  }
+  if(!values.length){const p=document.createElement('p');p.className='empty';p.textContent='Žádná shoda. Zkus například „graf“, „stav“, „historie“ nebo název funkce.';$('catalogGrid').append(p);}
+}
+data.screens.forEach((s,i)=>{const b=document.createElement('button');b.className='screen-tab';b.dataset.screen=s.id;b.innerHTML='<span class="number">'+String(i+1).padStart(2,'0')+'</span>'+escapeHTML(s.title);b.addEventListener('click',()=>renderScreen(s.id));$('screenTabs').append(b);});
+$('regionVisibility').addEventListener('change',()=> $('phone').classList.toggle('hide-regions',!$('regionVisibility').checked));
+$('screenCode').addEventListener('click',()=>selectComponent(currentScreen.parent));
+$('search').addEventListener('input',renderCatalog);
+$('copyCode').addEventListener('click',async()=>{
+  try{
+    const text=data.components[currentComponent].code;
+    if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(text);
+    else{const area=document.createElement('textarea');area.value=text;document.body.append(area);area.select();if(!document.execCommand('copy'))throw new Error('copy');area.remove();}
+    $('copyCode').textContent='Zkopírováno';
+  }catch(e){$('copyCode').textContent='Označ kód a použij Ctrl+C';}
+});
+$('fullSource').addEventListener('click',()=>{renderCode($('fullCode'),data.source);$('sourceDialog').showModal();});
+$('closeSource').addEventListener('click',()=> $('sourceDialog').close());
+$('zoomImage').addEventListener('click',()=>{
+  $('zoomTitle').textContent=currentScreen.title;
+  $('zoomedImage').src=currentScreen.image;
+  $('zoomedImage').alt='Zvětšený screenshot: '+currentScreen.title;
+  $('imageDialog').showModal();
+});
+$('closeImage').addEventListener('click',()=> $('imageDialog').close());
+renderScreen(currentScreen.id);renderCatalog();
+</script>
+</body>
+</html>
