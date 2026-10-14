@@ -52,7 +52,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// Jednorázový vklad, úrok se připisuje jednou ročně, bez daně.
 fun compoundInterest(deposit: Double, rate: Double, years: Int): Double {
     return deposit * (1 + rate / 100).pow(years)
 }
@@ -65,13 +64,10 @@ fun money(value: Double): String {
 
 @Composable
 fun InterestScreen(modifier: Modifier = Modifier) {
-    // Stejně jako v NewComp03 v CV1: změna stavu automaticky překreslí rozhraní.
-    // remember uchová hodnoty při překreslení této komponenty.
     var deposit by remember { mutableStateOf(100000f) }
     var rate by remember { mutableStateOf(5f) }
     var years by remember { mutableStateOf(30f) }
 
-    // Výsledek se při změně vstupních hodnot přepočítá.
     val total = compoundInterest(deposit.toDouble(), rate.toDouble(), years.toInt())
     val interest = total - deposit
 
@@ -115,12 +111,9 @@ fun InterestScreen(modifier: Modifier = Modifier) {
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(20.dp)) {
                 Text(text = "Vklad: ${money(deposit.toDouble())}", fontWeight = FontWeight.Bold)
-                // Stejně jako u textového pole v NewComp04:
-                // value je aktuální hodnota a onValueChange hlásí novou hodnotu.
                 Slider(
                     value = deposit,
                     onValueChange = {
-                        // Zaokrouhlení vkladu na celé tisíce korun.
                         deposit = (it / 1000).roundToInt() * 1000f
                     },
                     valueRange = 0f..500000f
@@ -152,7 +145,6 @@ fun InterestScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun InterestChart(deposit: Double, interest: Double, modifier: Modifier = Modifier) {
-    // AAY-chart si pamatuje měřítko. Nejvyšší sloupec proto vždy odpovídá 100 %.
     val maximum = maxOf(deposit, interest, 1.0)
     val bars = listOf(
         BarParameters("Vklad", listOf(deposit / maximum * 100), Color(0xFF80CBC4)),
