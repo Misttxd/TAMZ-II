@@ -150,7 +150,7 @@ fun compoundInterest(deposit: Double, rate: Double, years: Int, tax: Double = 0.
 fun monthlySavings(deposit: Double, monthlyDeposit: Double, rate: Double, years: Int, tax: Double = 0.0): Double {
     val monthlyRate = rate / 100 * (1 - tax / 100) / 12
     var total = deposit
-    // Úrok za měsíc, potom nový vklad na konci měsíce.
+    // Urok za mesic potom novy vklad na konci mesice.
     for (month in 1..(years * 12)) {
         total = total * (1 + monthlyRate) + monthlyDeposit
     }
