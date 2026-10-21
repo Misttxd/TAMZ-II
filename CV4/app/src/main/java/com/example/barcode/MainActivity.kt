@@ -1,6 +1,7 @@
 package com.example.barcode
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -30,6 +31,7 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.layer.drawLayer
+import androidx.compose.ui.graphics.layer.GraphicsLayer
 import androidx.compose.ui.graphics.rememberGraphicsLayer
 
 import android.provider.MediaStore
@@ -82,6 +84,15 @@ class MainActivity : ComponentActivity() {
 
                         Button(
                             onClick = {
+                                if (input.value.length != 12 || input.value.any { it !in '0'..'9' }) {
+                                    Toast.makeText(
+                                        this@MainActivity,
+                                        "Zadejte přesně 12 číslic.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    return@Button
+                                }
+
                                 var sum = 0
 
                                 for (i in 0..11) {
@@ -99,6 +110,11 @@ class MainActivity : ComponentActivity() {
                                     message.value = "Kontrolní číslice je správná."
                                 } else {
                                     message.value = "Kontrolní číslice je chybná."
+                                    Toast.makeText(
+                                        this@MainActivity,
+                                        "Kontrolní číslice je chybná.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             }
                         ) {
@@ -108,15 +124,7 @@ class MainActivity : ComponentActivity() {
                         Button(
                             onClick = {
                                 scope.launch {
-                                    val bitmap = graphicsLayer.toImageBitmap().asAndroidBitmap()
-
-                                    MediaStore.Images.Media.insertImage(
-                                        contentResolver,
-                                        bitmap,
-                                        "UPC_${displayedCode.value}",
-                                        "Čárový kód UPC-A"
-                                    )
-
+                                    saveBarcodeToGallery(graphicsLayer, displayedCode.value)
                                     message.value = "Obrázek uložen do galerie."
                                 }
                             }
@@ -145,6 +153,17 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private suspend fun saveBarcodeToGallery(graphicsLayer: GraphicsLayer, code: String) {
+        val bitmap = graphicsLayer.toImageBitmap().asAndroidBitmap()
+
+        MediaStore.Images.Media.insertImage(
+            contentResolver,
+            bitmap,
+            "UPC_${code}",
+            "Čárový kód UPC-A"
+        )
     }
 }
 
