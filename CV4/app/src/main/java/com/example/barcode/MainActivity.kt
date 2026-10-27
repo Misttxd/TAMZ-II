@@ -166,6 +166,7 @@ class MainActivity : ComponentActivity() {
         )
     }
 }
+//test
 
 // UPC-A L a R patterny
 private val Lp = intArrayOf(
