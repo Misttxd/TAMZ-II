@@ -82,7 +82,7 @@ private val levelDataEasy = intArrayOf(
 
 @Composable
 fun GameScreen(modifier: Modifier = Modifier) {
-    val gameMap = remember { levelData.toList().toMutableStateList() }
+    val gameMap = remember { levelDataEasy.toList().toMutableStateList() }
     val levelCompleted = remember { mutableStateOf(false) }
 
     Column(
@@ -115,11 +115,9 @@ fun GameScreen(modifier: Modifier = Modifier) {
                         verticalDragDistance += dragDistance.y
                     },
                     onDragEnd = {
-                        // Krátké nechtěné pohyby ignorujeme.
-                        if(!levelCompleted.value &&
-                            (abs(horizontalDragDistance) >= minimumDragDistance ||
-                                    abs(verticalDragDistance) >= minimumDragDistance))
+                        if(!levelCompleted.value)
                         {
+                            //horizontal move
                             if(abs(horizontalDragDistance) > abs(verticalDragDistance))
                             {
                                 if(horizontalDragDistance > 0)
@@ -127,6 +125,7 @@ fun GameScreen(modifier: Modifier = Modifier) {
                                 else
                                     movePlayer(gameMap, -1, 0)
                             }
+                            //vertical move
                             else
                             {
                                 if(verticalDragDistance > 0)
@@ -144,7 +143,7 @@ fun GameScreen(modifier: Modifier = Modifier) {
             }
         )
 
-        if(levelCompleted.value)
+        if(levelCompleted.value == true)
             Text(
                 text = "Vyhrál jsi!",
                 fontSize = 32.sp,
@@ -202,8 +201,7 @@ internal fun movePlayer(gameMap: MutableList<Int>, horizontalStep: Int, vertical
     val targetColumn = playerColumn + horizontalStep
     val targetRow = playerRow + verticalStep
 
-    if(targetColumn < 0 || targetColumn >= LEVEL_WIDTH ||
-        targetRow < 0 || targetRow >= LEVEL_HEIGHT)
+    if(targetColumn < 0 || targetColumn >= LEVEL_WIDTH || targetRow < 0 || targetRow >= LEVEL_HEIGHT)
         return
 
     val targetIndex = targetRow * LEVEL_WIDTH + targetColumn
