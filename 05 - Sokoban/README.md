@@ -1,8 +1,8 @@
 # Sokoban
 
-Jednoúrovňová hra Sokoban v Jetpack Compose.
+A single-level Sokoban game built with Jetpack Compose.
 
-## Popis funkčnosti
+## Features
 
-- Hráč přesouvá bedny na vyznačená cílová pole.
-- Hra počítá tahy a umožňuje úroveň restartovat.
+- Push boxes onto marked targets.
+- Track your move count and restart the level.

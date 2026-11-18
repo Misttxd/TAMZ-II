@@ -1,20 +1,20 @@
 # TAMZ II
 
-Cvičení z předmětu Technologie a aplikace mobilních zařízení II. Projekty jsou vytvořené v Kotlinu a Jetpack Compose.
+Coursework from Mobile Device Technologies and Applications II. The Android projects use Kotlin and Jetpack Compose.
 
-## Přehled cvičení
+## Exercises
 
-| Cvičení | Aplikace | Popis |
+| Exercise | App | Description |
 | --- | --- | --- |
-| CV1 | [Základy Jetpack Compose](<./01 - Základy Jetpack Compose/README.md>) | Ukázky rozložení, tlačítek a práce se stavem. |
-| CV2 | [Složený úrok](<./02 - Složený úrok/README.md>) | Kalkulačka jednorázového vkladu se sloupcovým grafem. |
-| CV3 | [Spořicí kalkulačka](<./03 - Spořicí kalkulačka/README.md>) | Rozšířený výpočet spoření s nastavením grafu a historií. |
-| CV4 | [Čárové kódy UPC-A](<./04 - Čárové kódy UPC-A/README.md>) | Načítání a vytváření čárových kódů. |
-| CV5 | [Sokoban](<./05 - Sokoban/README.md>) | Hra s přesouváním beden na cílová pole. |
-| CV6 | [Sokoban s úrovněmi](<./06 - Sokoban s úrovněmi/README.md>) | Výběr úrovní, ukládání rozehrané hry a nejlepší výsledky. |
-| CV7 | [Počasí](<./07 - Počasí/README.md>) | Aktuální počasí a předpověď pro zadané město. |
-| CV8 | [Počasí Plus](<./08 - Počasí Plus/README.md>) | Předpověď, graf teplot a oblíbená města. |
+| 1 | [Jetpack Compose Basics](<./01 - Jetpack Compose Basics/README.md>) | Examples of layouts, buttons, and state. |
+| 2 | [Compound Interest](<./02 - Compound Interest/README.md>) | A lump-sum deposit calculator with a bar chart. |
+| 3 | [Savings Calculator](<./03 - Savings Calculator/README.md>) | An extended savings calculator with chart settings and calculation history. |
+| 4 | [UPC-A Barcodes](<./04 - UPC-A Barcodes/README.md>) | Scans and generates barcodes. |
+| 5 | [Sokoban](<./05 - Sokoban/README.md>) | A puzzle game about pushing boxes onto marked targets. |
+| 6 | [Sokoban with Levels](<./06 - Sokoban with Levels/README.md>) | Level selection, saved progress, and best scores. |
+| 7 | [Weather](<./07 - Weather/README.md>) | Current conditions and forecasts for a chosen city. |
+| 8 | [Weather Plus](<./08 - Weather Plus/README.md>) | Forecasts, a temperature chart, and favorite cities. |
 
-## Spuštění
+## Running the apps
 
-Otevři složku vybraného cvičení v Android Studiu a spusť modul `app` na emulátoru nebo telefonu.
+Open the exercise folder in Android Studio and run the `app` module on an emulator or an Android device.
